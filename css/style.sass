@@ -1,0 +1,237 @@
+
+$mainColor: #eb7d00
+
+@mixin size($w,$h:$w)
+    width: $w
+    height: $h
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Rubik:wght@500&display=swap')
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    font-family: 'Rubik' ,'Noto Sans JP',serif
+    // border: 1px solid #000
+img
+    width: 100%
+    height: auto
+body
+    background-color: #07061a
+.wrapper
+    +size(100%,auto)
+    position: fixed
+    overflow: hidden
+    #tags
+        .tag
+            color: #fff
+            span
+                cursor: pointer
+.container
+    +size(100%,100vh)
+    display: flex
+    align-items: center
+.outside
+    margin: 0 auto
+    border-radius: 15px
+    background: linear-gradient(58.72deg, #FF20DB 0%, #FFFFFF 100%), linear-gradient(180deg, #FFFFFF 0%, #060046 100%), linear-gradient(64.82deg, #AD00FF 0%, #FF0000 100%), linear-gradient(307.27deg, #FF9900 0.37%, #150052 100%), radial-gradient(67.08% 100% at 50% 0%, #76005C 0%, #0500FF 100%), radial-gradient(100% 140% at 100% 0%, #5ED500 0%, #2200AA 100%)
+    background-blend-mode: soft-light, overlay, difference, difference, color-burn, normal
+    box-shadow: 0 0 10px #ff46e6
+.main
+    +size(1200px,820px)
+    overflow-y: auto
+    display: grid
+    column-gap: 10px
+    row-gap: 10px
+    padding: 1em
+    grid-template-columns: repeat(3,1fr)
+    grid-template-rows: repeat(auto-fit, 120px)
+    position: relative
+    background-color: #ffffff9c
+    margin: 15px
+    border-radius: 15px
+    &::-webkit-scrollbar-track
+        background-color: #ffffff6c
+        border-radius: 0 10px 10px 0
+    &::-webkit-scrollbar
+        width: 10px
+    &::-webkit-scrollbar-thumb
+        background: linear-gradient(151.47deg, #77ff00 0.49%, rgba(180, 0, 230, 0.636) 32.86%)
+        border-radius: 0 8px 8px 0
+    .pokemon_obj
+        background-color: #ffffff56
+        display: flex
+        padding: 5px
+        cursor: pointer
+        .info
+            flex: 2
+        .icon_pic
+            width: 110px
+.pokemon_info
+    position: fixed
+    +size(100%)
+    top: 0
+    left: 0
+    display: none
+    align-items: center
+    justify-content: center
+    .pokemon_frame
+        position: relative
+        padding: 8px 15px 18px 8px
+        +size(480px,300px)
+        border-radius: 12px
+        background-blend-mode: screen, color-dodge, overlay, difference, normal
+        background: radial-gradient(50% 123.47% at 50% 50%, #00FF94 0%, #720059 100%), linear-gradient(121.28deg, #669600 0%, #FF0000 100%), linear-gradient(360deg, #0029FF 0%, #8FFF00 100%), radial-gradient(100% 164.72% at 100% 100%, #6100FF 0%, #00FF57 100%), radial-gradient(100% 148.07% at 0% 0%, #FFF500 0%, #51D500 100%)
+        box-shadow: inset -2px -2px 10px #0000003e
+        .close_btn
+            position: absolute
+            z-index: 20
+            top: -1rem
+            right: -1rem
+            padding: 5px 10px 7px 4px
+            +size(3rem) 
+            border-radius: 8px  
+            cursor: pointer
+            background-blend-mode: screen, color-dodge, overlay, difference, normal
+            background: radial-gradient(50% 123.47% at 50% 50%, #00FF94 0%, #720059 100%), linear-gradient(121.28deg, #669600 0%, #FF0000 100%), linear-gradient(360deg, #0029FF 0%, #8FFF00 100%), radial-gradient(100% 164.72% at 100% 100%, #6100FF 0%, #00FF57 100%), radial-gradient(100% 148.07% at 0% 0%, #FFF500 0%, #51D500 100%)
+            .close_body
+                +size(100%)
+                background-color: #0a102abd
+                border-radius: 3px  
+                position: relative
+                &::after
+                    content: ""
+                    position: absolute
+                    top: 50%
+                    transform: translateY(-50%) rotate(45deg) scale(0.6)
+                    display: block
+                    +size(100%,.3rem)
+                    background-color: #9c9c9c
+                    // transition: .3s
+                &::before
+                    content: ""
+                    position: absolute
+                    left: 50%
+                    transform: translateX(-50%) rotate(45deg) scale(0.6)
+                    display: block
+                    +size(0.3rem,100%)
+                    background-color: #9c9c9c
+                    transition: .3s
+                &:hover
+                    &::after,&::before
+                        background-color: #353535
+                    
+        .pokemon_profile
+            background-color: #0a102abd
+            height: 100%
+            border-radius: 5px
+            position: relative
+            .my_photo
+                width: 350px
+                margin: 0 auto
+                position: absolute
+                right: -3rem
+                top: 0.8rem
+            .personal_data
+                position: absolute
+                top: 5px
+                left: 10px
+                h4
+                    color: transparent
+                    background: radial-gradient(ellipse at top, #ffea9d , #ff6b86)
+                    background-clip: text
+                    -webkit-background-clip: text
+                    -moz-background-clip: text
+                    -o-background-clip: text
+                    font-size: 2.5rem
+                    // font-family: Noto Sans JP,serif
+                p
+                    color: #fff
+                    text-shadow: 0 0 5px #00000031
+    .attributes
+        margin-top: .5rem
+        .type
+            font-size: 1rem
+            font-family: 'Archivo Black' ,serif
+            padding: 0 1rem 0 .5rem
+            transform: skewX(-15deg)
+            display: block
+        .type1
+        .type2
+        .fire
+            background: radial-gradient(ellipse at left, #ffea9d,#ff0000 20%,transparent 65%)
+        .grass
+            background: radial-gradient(ellipse at left, #ffea9d,#00e522 20%,transparent 65%)
+        .poison
+            background: radial-gradient(ellipse at left, #ffea9d,#7700ff 20%,transparent 65%)
+        .flying
+            background: radial-gradient(ellipse at left, #ffea9d,#6cf0f9 20%,transparent 65%)
+        .water
+            background: radial-gradient(ellipse at left, #9da5ff,#001eff 20%,transparent 65%)
+        .bug
+            background: radial-gradient(ellipse at left, #ffea9d,#a8ff2f 20%,transparent 65%)
+        .normal
+            background: radial-gradient(ellipse at left, #ffea9d,#636363 20%,transparent 65%)
+        .psychic
+            background: radial-gradient(ellipse at left, #ffea9d,#ff3ee8 20%,transparent 65%)
+        .fighting
+            background: radial-gradient(ellipse at left, #ffea9d,#ff3c00 20%,transparent 65%)
+        .electric
+            background: radial-gradient(ellipse at left, #ffea9d,#ffe600 20%,transparent 65%)
+        .rock
+            background: radial-gradient(ellipse at left, #ffea9d,#47361c 20%,transparent 65%) 
+        .ground
+            background: radial-gradient(ellipse at left, #ffea9d,#7b3620 20%,transparent 65%)
+        .steel
+            background: radial-gradient(ellipse at left, #ffea9d,#102155 20%,transparent 65%)
+        .ice
+            background: radial-gradient(ellipse at left, #ffea9d,#00e5ff 20%,transparent 65%)
+        .ghost
+            background: radial-gradient(ellipse at left, #ffea9d,#291a4b 20%,transparent 65%)
+        .fairy
+            background: radial-gradient(ellipse at left, #ffea9d,#ff6b86 20%,transparent 65%)
+        .dragon
+        .dark
+
+// ------->屬性顏色<----------
+.types
+    margin-top: .8rem
+.type
+    color: #fff
+    display: inline-block
+    padding: 2px 5px
+.fire
+    background-color: #cc0000
+.grass
+    background-color: #008a05
+.poison
+    background-color: #ae00ff
+.flying
+    background-color: #6cb1bd
+.water
+    background-color: #002fff
+.bug
+    background-color: #8aba1c
+.normal
+    background-color: #5a5a5a
+.psychic
+    background-color: #ff5ffc
+.fighting
+    background-color: #ff8c3a
+.electric
+    background-color: #ffe600
+.rock
+    background-color: #555300
+.ground
+    background-color: #9e6529
+.steel
+    background-color: #1c3647
+.ice
+    background-color: #71f3ff
+.ghost
+    background-color: #654d6a
+.fairy
+    background-color: #ff90b7
+.dragon
+    background-color: #ec5300
+.dark
+    background-color: #080808
