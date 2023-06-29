@@ -700,6 +700,7 @@ body {
   }
   .outside .input input {
     width: 95%;
+    font-size: initial;
   }
   .outside .pokemon_info .pokemon_frame .pokemon_profile .my_photo {
     width: 85%;
