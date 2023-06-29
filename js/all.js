@@ -2,75 +2,83 @@
 //     執行動作(e.g.更新網頁)
 // })
 
-var pokemonUrl = "https://pokeapi.co/api/v2/pokemon?offset=00&limit=102";
+var pokemonUrl = "https://pokeapi.co/api/v2/pokemon?offset=00&limit=200";
 var data =[];
 var eachPokemon =[];
+const ab =[];
 var content = document.querySelector('.main');
-var pokemonInfo = document.querySelector('.pokemon_info');
+// var pokemonInfo = document.querySelector('.pokemon_info');
 function downloadList(){
     $.ajax({
         url: pokemonUrl,
         success: function(respond){
             data = respond.results
-            console.log(data)
+            // console.log(data)
             var len = data.length
-            console.log(len)
+            // console.log(len)
             for(var i=0;i<len;i++){
                 var url = data[i].url
+                // console.log(url)
                 $.ajax(url).then(function(res){
-                    eachPokemon.push(res)
-                    updateData(eachPokemon)
-                })                
+                    eachPokemon.push(res);
+                    updateData(eachPokemon);
+                    var aa = res.abilities[0].ability.url
+                    // console.log(res.abilities[0].ability.url)
+                    $.ajax(aa).then(function(res2){
+                        ab.push(res2)
+                    })
+                })            
             }
-            console.log(eachPokemon)
+            
         },
         error: function(){
-            console.log("載入失敗")
+            console.log("載入失敗");
         }
-
+    })
+    $.ajax({
+        url: eachPokemon
     })
 }
 downloadList()
 function updateData(e){
-    // console.log(e)
     var len =e.length;
+    // console.log(len)
     var block ='';
     for(i=0;i<len;i++){
         if(e[i].types.length == 1){
         block+=`
         <div class="pokemon_obj" data-number="${i}" data-type="${e[i].types[0].type.name}">
-            <div class="info" data-number="${i}">
-                <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
-                <p data-number="${i}">#${ PrefixIntegar(e[i].id,3)}</p>
-                <p class="types" data-number="${i}">
-                    <span data-number="${i}" class="type">${e[i].types[0].type.name}</span>
-                </p>
-            </div>
             <div class="icon_pic" data-number="${i}">
                 <img src="${e[i].sprites.other.home.front_default}" data-number="${i}" alt="" />
+            </div>
+            <div class="info" data-number="${i}">
+                <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
             </div>
         </div>
         `
     }else{
         block+=`
         <div class="pokemon_obj" data-number="${i}" data-type="${e[i].types[0].type.name}" data-type2="${e[i].types[1].type.name}">
-            <div class="info" data-number="${i}">
-                <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
-                <p data-number="${i}">#${ PrefixIntegar(e[i].id,3)}</p>
-                <p class="types" data-number="${i}">
-                    <span data-number="${i}" class="type">${e[i].types[0].type.name}</span>
-                    <span data-number="${i}" class="type">${e[i].types[1].type.name}</span>
-                </p>
-            </div>
             <div class="icon_pic" data-number="${i}">
                 <img src="${e[i].sprites.other.home.front_default}" data-number="${i}" alt="" />
+            </div>
+            <div class="info" data-number="${i}">
+                <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
             </div>
         </div>
         `
     }
+    // <div class="info" data-number="${i}">
+    //     <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
+    //     <p data-number="${i}">#${ PrefixIntegar(e[i].id,3)}</p>
+    //     <p class="types" data-number="${i}">
+    //         <span data-number="${i}" class="type">${e[i].types[0].type.name}</span>
+    //         <span data-number="${i}" class="type">${e[i].types[1].type.name}</span>
+    //     </p>
+    // </div>
     }
     content.innerHTML=block
-    typeClass()
+    // typeClass()
 }
 
 function PrefixIntegar(num,length){
@@ -79,16 +87,14 @@ function PrefixIntegar(num,length){
 
 content.addEventListener('click',showData,false)
 function showData(e){
-    // console.log(e.target.nodeName)
-    pokemonInfo.style.display = "flex"
-    if(e.target.className == 'main'){
-        pokemonInfo.style.display = "none"
+    // pokemonInfo.style.display = "flex"
+    if(e.target.className == 'main'|| e.target.dataset.number == undefined){
+        // pokemonInfo.style.display = "none"
         return
     }else if(e.target.dataset.number !== 'undefined'){
-        pokemonInfo.style.backgroundColor = "#00000056"
+        content.classList.add('pokemon_info');
         var str='';
         var number = e.target.dataset.number
-        console.log(e)
         if(eachPokemon[number].types.length == 1){
             str = `
             <div class="pokemon_frame">
@@ -99,12 +105,23 @@ function showData(e){
                     <div class="my_photo">
                         <img src="${eachPokemon[number].sprites.other.home.front_default}" alt="" />
                     </div>
+                    <h4>${eachPokemon[number].name.toUpperCase()}</h4>
                     <div class="personal_data">
-                        <h4>${eachPokemon[number].name.toUpperCase()}</h4>
-                        <p><span>ID: </span>${PrefixIntegar(eachPokemon[number].id,3)}</p>
-                        <p><span>Height: </span>${eachPokemon[number].height/10}m</p>
-                        <p><span>Weight: </span>${eachPokemon[number].weight/10}kg</p>
+                        <p><span>ID:&nbsp&nbsp</span>${PrefixIntegar(eachPokemon[number].id,3)}</p>
+                        <p><span>Height:&nbsp&nbsp</span>${eachPokemon[number].height/10}m</p>
+                        <p><span>Weight:&nbsp&nbsp</span>${eachPokemon[number].weight/10}kg</p>
                         <div class="attributes"><span class="type type1">${eachPokemon[number].types[0].type.name.toUpperCase()}</span></div>
+                        <div class="ability">
+                            <p>
+                                Ability: 
+                            </p>
+                            <p>
+                                ${ab[number].names[2].name}
+                            </p>
+                            <p>
+                                ${ab[number].flavor_text_entries[27].flavor_text}
+                            </p>
+                    </div>
                     </div>
                 </div>
             </div>`
@@ -118,24 +135,34 @@ function showData(e){
                     <div class="my_photo">
                         <img src="${eachPokemon[number].sprites.other.home.front_default}" alt="" />
                     </div>
+                    <h4>${eachPokemon[number].name.toUpperCase()}</h4>
                     <div class="personal_data">
-                        <h4>${eachPokemon[number].name.toUpperCase()}</h4>
-                        <p><span>ID: </span>${PrefixIntegar(eachPokemon[number].id,3)}</p>
-                        <p><span>Height: </span>${eachPokemon[number].height/10}m</p>
-                        <p><span>Weight: </span>${eachPokemon[number].weight/10}kg</p>
-                        <div class="attributes"><span class="type type1">${eachPokemon[number].types[0].type.name.toUpperCase()}</span>
-                        <span class="type type2">${eachPokemon[number].types[1].type.name.toUpperCase()}</span></div>
+                        <p><span>ID:&nbsp&nbsp</span>${PrefixIntegar(eachPokemon[number].id,3)}</p>
+                        <p><span>Height:&nbsp&nbsp</span>${eachPokemon[number].height/10}m</p>
+                        <p><span>Weight:&nbsp&nbsp</span>${eachPokemon[number].weight/10}kg</p>
+                        <div class="attributes">
+                            <span class="type type1">${eachPokemon[number].types[0].type.name.toUpperCase()}</span>
+                            <span class="type type2">${eachPokemon[number].types[1].type.name.toUpperCase()}</span>
+                        </div>
+                        <div class="ability">
+                            <p>Ability: </p>
+                            <p>${ab[number].names[2].name}</p>
+                            <p>
+                                ${ab[number].flavor_text_entries[27].flavor_text}
+                            </p>
                         </div>
                     </div>
+                </div>
             </div>`
         }
         // console.log(eachPokemon[number].types.length)
     }
-    pokemonInfo.innerHTML=str
+    content.innerHTML=str
     typeClass2()
-    var closeBtn = document.querySelector('.close_btn')
+    var closeBtn = document.querySelector('.close_btn');
     closeBtn.addEventListener('click',function(){
-        pokemonInfo.style.display = "none"
+        content.classList.remove('pokemon_info');
+        updateData(eachPokemon)
     })
 }
 
@@ -273,16 +300,52 @@ console.log(tag)
 for (i=0 ; i< tag.length; i++){
     tag[i].addEventListener('click',function(e){
         var t = e.target.dataset.name
-        console.log(e.target)
+        // console.log(e.target)
         var p = content.querySelectorAll('.pokemon_obj') 
         for(b=0;b<p.length;b++){
             p[b].style.display ="none"
             if(p[b].dataset.type == t || p[b].dataset.type2 == t){
-                console.log(p[b])
-                p[b].style.display = "flex"
+                // console.log(p[b])
+                p[b].style.display = "block"
             }else if(t == 'all'){
-                p[b].style.display ="flex"
+                p[b].style.display ="block"
             }
         }
     },false)
+}
+//篩選
+function filterFunction(){
+    const input = document.getElementById("myInput");
+    const filterItem = document.getElementsByTagName('h4');
+    var p = content.querySelectorAll('.pokemon_obj');
+    console.log(p.length);
+    for(i=0;i<p.length;i++){
+        // console.log(input.value)
+        if(filterItem[i].textContent.indexOf(input.value.toUpperCase())>-1){
+            p[i].style.display ="";
+        }else{
+            p[i].style.display ="none";
+        }
+    }
+    
+}
+
+//圖片
+var counter = 5;
+const imgChange = document.querySelectorAll('.figure');
+
+timer = 3000, //  秒換圖
+interval = window.setInterval(showNext, timer); 
+
+let showImg = function(){
+    var imgShow = Math.abs(counter%imgChange.length);
+    [].forEach.call(imgChange,(el)=>{ 
+        //Array.prototype =[]
+        el.classList.remove('g2');
+    });
+    imgChange[imgShow].classList.add('g2');
+}
+function showNext(){
+    counter++;
+    showImg();
 }
