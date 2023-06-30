@@ -17,11 +17,13 @@ img
     width: 100%
     height: auto
 body
-    background-size: cover
+    
 .wrapper
     +size(100%,100vh)
     position: fixed
     overflow: hidden
+    background: url('../images/dot_b.png')  repeat-x
+    background-position:  0% 110%
     z-index: 1
 .slide_wrap
     overflow: hidden
@@ -101,7 +103,7 @@ body
     &::before            
         content: ''
         position: fixed
-        +size(100%)
+        +size(412px,100%)
         opacity: 0.1
         background:  url('../images/dot.svg') bottom repeat-x
     &::-webkit-scrollbar-track
@@ -257,7 +259,35 @@ body
     display: inline-block
     padding: 2px 5px
 
+// -------->LoadingPage<-------
+.loading_page
+    +size(100%,100vh)
+    background: #fff
+    position: fixed
+    display: flex
+    justify-content: center
+    align-items: center
+    top: 0
+    left: 0
+    z-index: 25
+    div        
+        +size(50px)   
+        position: relative   
+        .square
+            +size(20px)
+            position: absolute
+            display: inline-block
+            background-color: $mainColor
+            transform: rotate(45deg)
+            margin: 0 25px
+            animation: toL 1s infinite ease-in-out alternate
+            &:nth-child(2)
+                animation-name: toR
+                background-color: rgba($mainColor,0.2)
 
+.closeLoading
+    transition: all 1s
+    opacity: 0
 @keyframes infinity-scroll-left
     0%
         transform: translateX(-40%)
@@ -269,6 +299,17 @@ body
         background-position: 0% 0%
     100%
         background-position: 220% 0%
+@keyframes toR
+    0%
+        left: -20px
+    100%
+        left: 15px
+@keyframes toL
+    0%
+        right: -25px
+    100%
+        right: 15px
+
 @keyframes glitch 
     0% 
         opacity: 1
@@ -376,14 +417,22 @@ body
         left: initial
         margin: 0 auto
         width: 100%
+        &::before
+            width: 100%
         .input
             width: 100%
+            height: 10%
             left: 0
             input
                 width: 95%
-                font-size: initial
+                height: 45px
+                font-size: 18px
         .pokemon_info
             .pokemon_frame
                 .pokemon_profile
                     .my_photo
-                        width: 85%
+                        width: 65%
+                    .personal_data
+                        p
+                            font-size: 1rem
+                            margin: .4rem 0

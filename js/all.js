@@ -157,12 +157,22 @@ function showData(e){
         }
         // console.log(eachPokemon[number].types.length)
     }
+    const slideAnimate = [
+        { transform: 'translateX(-200px)' },
+        { transform: ' translateX(0px)' },
+    ];
+    const slideTiming = {
+        duration: 200,
+        iterations: 1,
+    }
+    content.animate(slideAnimate,slideTiming)
     content.innerHTML=str
+    
     typeClass2()
     var closeBtn = document.querySelector('.close_btn');
     closeBtn.addEventListener('click',function(){
-        content.classList.remove('pokemon_info');
-        updateData(eachPokemon)
+            content.classList.remove('pokemon_info');
+            updateData(eachPokemon); 
     })
 }
 
@@ -293,7 +303,6 @@ function typeClass2(){
     }
     
 }
-
 // 標籤切換
 var tag = document.querySelectorAll('.tag span');
 console.log(tag)
@@ -349,3 +358,13 @@ function showNext(){
     counter++;
     showImg();
 }
+
+//LoadingPage
+
+let loading = setInterval(()=>{  
+    $(".loading_page").addClass("closeLoading")  
+    setTimeout(()=>{
+        $(".loading_page").css("display","none")
+    },1000); 
+},4000)
+
