@@ -1,0 +1,478 @@
+
+$mainColor: #6a00ff
+
+@mixin size($w,$h:$w)
+    width: $w
+    height: $h
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Rubik:wght@500&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Gasoek+One&display=swap')
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    font-family: 'Rubik' ,'Noto Sans JP',serif
+    // border: 1px solid #000
+img
+    width: 100%
+    height: auto
+body
+    
+.wrapper
+    +size(100%,100vh)
+    position: fixed
+    overflow: hidden
+    background: url('../images/dot_b.png')  repeat-x
+    background-position:  0% 110%
+    z-index: 1
+.slide_wrap
+    overflow: hidden
+    display: flex
+    ul
+        display: flex
+        list-style: none
+        animation: infinity-scroll-left 10s infinite linear
+        line-height: 1.3
+        &.whiteText 
+            animation: infinity-scroll-left 10s infinite linear reverse
+            .slide_item
+                span
+                    color: #ffffff
+        &.reverse
+            animation: infinity-scroll-left 10s infinite linear
+        .slide_item 
+            &:nth-child(2)
+                margin-left: 1000px
+            span
+                color: $mainColor
+                font-family: 'Gasoek One'
+                // font-weight: bold
+                font-size: 11rem
+    
+.container
+    position: relative
+    +size(100%,100vh)
+    display: flex
+    align-items: center
+    overflow: hidden
+    z-index: 20
+    #tags
+        position: absolute
+        +size(100%,480px)
+        z-index: 10
+        .alltag
+            position: absolute
+            left: 64.5%
+            top: -3%
+            padding: 20px
+            .tag
+                color: #fff
+                background: linear-gradient(180deg,  #d2b0ff 5%,#7e21ff 20% ,$mainColor 50%, #5500cc 80%)
+                box-shadow: inset 3px  0px  3px #ffffff
+                transform: skew(-22deg)
+                margin: 0 0 6px 0
+                border-radius: 5px
+                &:active
+                    filter: brightness(120%)
+                span
+                    cursor: pointer
+                    display: block
+                    padding: 2px 15px 2px 12px 
+    .figure
+        position: absolute
+        width: 1100px
+        opacity: 0
+        z-index: 8
+        transition: all .2s
+        &.g2
+            transition: all .3s
+            opacity: 1
+            animation: glitchText  2.5s linear
+    .purple_area
+        position: absolute
+        +size(100%,480px)
+        background-color: $mainColor
+        z-index: -1
+.outside
+    +size(430px,100%)
+    background-color: #fff
+    position: relative
+    left: 70%
+    overflow-y: auto
+    border-top: 9px solid $mainColor
+    border-left: 9px solid $mainColor
+    border-right: 9px solid $mainColor
+    z-index: 20
+    &::before            
+        content: ''
+        position: fixed
+        +size(412px,100%)
+        opacity: 0.1
+        background:  url('../images/dot.svg') bottom repeat-x
+    &::-webkit-scrollbar-track
+        background-color: #ffffff6c
+    &::-webkit-scrollbar
+        display: none
+    &::-webkit-scrollbar-thumb
+        background: linear-gradient(151.47deg, #efffbd 0.49%, rgb(166, 176, 119) 32.86%)
+    .input
+        position: fixed
+        display: flex
+        align-items: center
+        justify-content: center
+        +size(412px,8%)
+        bottom: 0
+        background-color: $mainColor
+        input
+            +size(100%,30px)  
+            padding-left: 5px
+    .main    
+        display: grid
+        margin-bottom: 60px
+        column-gap: 10px
+        row-gap: 10px
+        padding: 1em
+        grid-template-columns: repeat(2,1fr)
+        position: relative
+        .pokemon_obj
+            padding: 5px
+            cursor: pointer
+            .info h4
+                text-align: center
+                font-size: .9rem
+                color: #1a1a1a
+
+    .pokemon_info
+        +size(100%,100%)
+        display: block
+        background: #ffffff url(../images/bg_repeat.jpg)
+        animation: infinity-scroll-slanted 5s infinite linear
+        margin-bottom: 0
+        .pokemon_frame
+            .close_btn
+                position: absolute
+                z-index: 20
+                top: 1rem
+                right: 1rem
+                padding: 5px 10px 7px 4px
+                +size(5rem) 
+                border-radius: 8px  
+                cursor: pointer
+                .close_body
+                    +size(100%)
+                    border-radius: 3px  
+                    position: relative
+                    &::after
+                        content: ""
+                        position: absolute
+                        top: 50%
+                        transform: translateY(-50%) rotate(45deg) scale(0.6)
+                        display: block
+                        +size(100%,.5rem)
+                        background-color: #9c9c9c
+                        // transition: .3s
+                    &::before
+                        content: ""
+                        position: absolute
+                        left: 50%
+                        transform: translateX(-50%) rotate(45deg) scale(0.6)
+                        display: block
+                        +size(0.5rem,100%)
+                        background-color: #9c9c9c
+                        transition: .3s
+                    &:hover
+                        &::after,&::before
+                            background-color: #353535
+                        
+            .pokemon_profile
+                height: 100%
+                position: relative
+                .my_photo
+                    width: 350px
+                    margin: 0 auto
+                    filter: drop-shadow(0 0 15px #3a3a3a36)
+                h4
+                    text-align: center
+                    color: transparent
+                    background: #232323
+                    background-clip: text
+                    -webkit-background-clip: text
+                    -moz-background-clip: text
+                    -o-background-clip: text
+                    font-size: 2.5rem
+                    // font-family: Noto Sans JP,serif
+                .personal_data
+                    padding: 1rem 2rem
+                    p
+                        color: #232323
+                        font-size: 1.2rem
+                        margin: 0.6rem 0
+                        text-shadow: 0 0 5px #00000031
+        .attributes
+            margin-top: .5rem
+            .type
+                font-size: 1rem
+                font-family: 'Archivo Black' ,serif
+                transform: skewX(-15deg)
+                display: block
+            .type1
+            .type2
+            .fire
+                background: radial-gradient(ellipse at left, #ffffff,#ff0000 20%,transparent 65%)
+            .grass
+                background: radial-gradient(ellipse at left, #ffea9d,#00e522 20%,transparent 65%)
+            .poison
+                background: radial-gradient(ellipse at left, #ffea9d,#7700ff 20%,transparent 65%)
+            .flying
+                background: radial-gradient(ellipse at left, #fffffe,#6cf0f9 20%,transparent 65%)
+            .water
+                background: radial-gradient(ellipse at left, #9da5ff,#001eff 20%,transparent 65%)
+            .bug
+                background: radial-gradient(ellipse at left, #ffea9d,#a8ff2f 20%,transparent 65%)
+            .normal
+                background: radial-gradient(ellipse at left, #ffea9d,#636363 20%,transparent 65%)
+            .psychic
+                background: radial-gradient(ellipse at left, #ffea9d,#ff3ee8 20%,transparent 65%)
+            .fighting
+                background: radial-gradient(ellipse at left, #ffea9d,#ff3c00 20%,transparent 65%)
+            .electric
+                background: radial-gradient(ellipse at left, #ffea9d,#ffe600 20%,transparent 65%)
+            .rock
+                background: radial-gradient(ellipse at left, #ffea9d,#47361c 20%,transparent 65%) 
+            .ground
+                background: radial-gradient(ellipse at left, #ffea9d,#7b3620 20%,transparent 65%)
+            .steel
+                background: radial-gradient(ellipse at left, #ffea9d,#102155 20%,transparent 65%)
+            .ice
+                background: radial-gradient(ellipse at left, #cefeff,#00e5ff 20%,transparent 65%)
+            .ghost
+                background: radial-gradient(ellipse at left, #ffffff,#291a4b 20%,transparent 65%)
+            .fairy
+                background: radial-gradient(ellipse at left, #ffea9d,#ff6b86 20%,transparent 65%)
+            .dragon
+                background: radial-gradient(ellipse at left, #ffea9d,#ec5300 20%,transparent 65%)
+            .dark
+                background: radial-gradient(ellipse at left, #d3d3d3,#080808 20%,transparent 65%)
+
+// ------->屬性顏色<----------
+.types
+    margin-top: .8rem
+.type
+    color: #fff
+    display: inline-block
+    padding: 2px 5px
+
+// -------->LoadingPage<-------
+.loading_page
+    +size(100%,100vh)
+    background: #fff
+    position: fixed
+    display: flex
+    justify-content: center
+    align-items: center
+    top: 0
+    left: 0
+    z-index: 25
+    .content      
+        display: flex    
+        h1
+            animation: glitchText2 2s infinite
+        .squres
+            display: flex
+            position: relative
+            margin-left: 30px
+            .square
+                +size(20px)
+                position: absolute
+                background-color: $mainColor
+                transform: rotate(45deg)
+                top: 10px
+                margin: 0 25px
+                animation: toL 1s infinite ease-in-out alternate
+                &:nth-child(2)
+                    animation-name: toR
+                    background-color: rgba($mainColor,0.2)
+
+.closeLoading
+    transition: all 1s
+    opacity: 0
+    
+@keyframes infinity-scroll-left
+    0%
+        transform: translateX(-40%)
+    100%
+        transform: translateX(27%)
+
+@keyframes infinity-scroll-slanted
+    0%
+        background-position: 0% 0%
+    100%
+        background-position: 220% 0%
+@keyframes toR
+    0%
+        left: -20px
+    100%
+        left: -50px
+@keyframes toL
+    0%
+        right: -20px
+    100%
+        right: -50px
+
+@keyframes glitch 
+    0% 
+        opacity: 1
+        transform: translate3d(0, 0, 0) scale3d(-1, -1, 1)
+        -webkit-clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%)
+        clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%)
+    
+
+    10% 
+        -webkit-clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%)
+        clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%)
+    
+
+    20% 
+        -webkit-clip-path: polygon(0 44%, 100% 44%, 100% 54%, 0 44%)
+        clip-path: polygon(0 44%, 100% 44%, 100% 54%, 0 44%)
+    
+
+    35% 
+        -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%)
+        clip-path: polygon(0 16%, 100% 16%, 100% 19%, 0 19%)
+    
+
+    38% 
+        -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%)
+        clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%)
+    
+
+    69% 
+        -webkit-clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%)
+        clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%)
+    
+
+    70% 
+        -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%)
+        clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%)
+    
+
+    88% 
+        -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%)
+        clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%)    
+
+    90% 
+        transform: translate3d(0, 0, 0) scale3d(-1, 1, 1)     
+
+    100% 
+        opacity: 0
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1)
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
+        
+@keyframes glitchText
+    0%
+        transform: translate3d((-1*10px),0,0) scale3d(-1,-1,1)
+        clip-path: polygon(0 20%,100% 20%,100% 21%, 0 21%)
+    2%
+        clip-path: polygon(0 33%,100% 33%,100% 33%, 0 33%)
+    4%
+        clip-path: polygon(0 44%,100% 44%,100% 44%, 0 44%)
+    5%
+        clip-path: polygon(0 50%,100% 50%,100% 20%, 0 20%)
+    6%
+        clip-path: polygon(0 70%,100% 70%,100% 70%, 0 70%)
+    7%
+        clip-path: polygon(0 80%,100% 80%,100% 80%, 0 80%)
+    8%
+        clip-path: polygon(0 50%,100% 50%,100% 55%, 0 55%)
+    9%
+        clip-path: polygon(0 70%,100% 70%,100% 80%, 0 80%)
+    9.9%
+        transform: translate3d((-1*10px),0,0) scale3d(-1,-1,1)
+    10%,100%
+        transform: translate3d(0,0,0) scale3d(1,1,1)
+        clip-path: polygon(0 0%,100% 0%,100% 100%, 0 100%)
+    10.5%
+        filter: brightness(120%)
+    19%
+        filter: brightness(120%) drop-shadow(0 0 5px $mainColor)
+    60%
+        filter: brightness(100%)
+@keyframes glitchText2
+    0%
+        transform: translate3d((-1*10px),0,0) scale3d(-1,-1,1)
+        clip-path: polygon(0 20%,100% 20%,100% 21%, 0 21%)
+    2%
+        clip-path: polygon(0 33%,100% 33%,100% 33%, 0 33%)
+    4%
+        clip-path: polygon(0 44%,100% 44%,100% 44%, 0 44%)
+    5%
+        clip-path: polygon(0 50%,100% 50%,100% 20%, 0 20%)
+    6%
+        clip-path: polygon(0 70%,100% 70%,100% 70%, 0 70%)
+    7%
+        clip-path: polygon(0 80%,100% 80%,100% 80%, 0 80%)
+    8%
+        clip-path: polygon(0 50%,100% 50%,100% 55%, 0 55%)
+    9%
+        clip-path: polygon(0 70%,100% 70%,100% 80%, 0 80%)
+    9.9%
+        transform: translate3d((-1*10px),0,0) scale3d(-1,-1,1)
+    10%,100%
+        transform: translate3d(0,0,0) scale3d(1,1,1)
+        clip-path: polygon(0 0%,100% 0%,100% 100%, 0 100%)
+
+@media screen and ( max-width: 1600px )
+    .container
+        #tags
+            .alltag
+                left: 63%
+        .figure
+            width: 950px
+    .outside
+        .pokemon_info .pokemon_frame
+            .pokemon_profile
+                .my_photo
+                    width: 55%
+    .slide_wrap .rwd
+        line-height: 0.3
+
+@media screen and ( max-width: 1300px )
+    .container
+        #tags
+            .alltag
+                left: 51.5%
+    .outside
+        left: 60%
+@media screen and ( max-width: 1000px )
+    .container
+        #tags
+            .alltag
+                left: 39.5%
+    .outside
+        left: 50%
+@media screen and ( max-width: 820px )
+    .outside
+        left: initial
+        margin: 0 auto
+        width: 100%
+        &::before
+            width: 100%
+        .input
+            width: 100%
+            height: 10%
+            left: 0
+            input
+                width: 95%
+                height: 45px
+                font-size: 18px
+        .pokemon_info
+            .pokemon_frame
+                .pokemon_profile
+                    .my_photo
+                        width: 50%
+                    .personal_data
+                        p
+                            font-size: 1rem
+                            margin: .4rem 0
