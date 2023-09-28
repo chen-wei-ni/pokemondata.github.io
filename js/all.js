@@ -2,9 +2,9 @@
 //     執行動作(e.g.更新網頁)
 // })
 
-const pokemonUrl = "https://pokeapi.co/api/v2/pokemon?offset=00&limit=200";
+const pokemonUrl = "https://pokeapi.co/api/v2/pokemon?offset=00&limit=205";
 var data = [];
-var eachPokemon = [];
+let eachPokemon = [];
 const ab = [];
 var content = document.querySelector('.main');
 var pokemonInfo = document.querySelector('.pokemon_info');
@@ -36,29 +36,59 @@ var pokemonInfo = document.querySelector('.pokemon_info');
 //         url: eachPokemon
 //     })
 // }
+fetchPokemon();
 async function fetchPokemon() {
     try {
         const res = await fetch(pokemonUrl);
         const data = await res.json();
         data.results.forEach(async (n, i) => {
-            let response = await fetch(data.results[i].url);
+            let response = await fetch(n.url);
             let jsonData = await response.json();
             eachPokemon.push(jsonData);
-            updateData(eachPokemon);
             let abilities_ = await fetch(jsonData.abilities[0].ability.url);
-            let jsonab = await abilities_.json()
+            let jsonab = await abilities_.json();
             ab.push(jsonab);
-        })
+        });
     } catch (e) {
         console.log(e);
     }
 }
-fetchPokemon()
+// async function catchAbility(arr) {
+//     arr.forEach(async (n, i) => {
+//         // console.log(n.abilities[0].ability.name);
+//         let abilities_ = await fetch(n.abilities[0].ability.url);
+//         let jsonab = await abilities_.json();
+//         // console.log(jsonab.name);
+//         ab.push(jsonab);
+//     })
+//     sortObj(eachPokemon);
+//     searchRightAbility(eachPokemon, ab);
+// }
+
+setTimeout(() => {
+    sortObj(eachPokemon);
+    updateData(eachPokemon);
+}, 3000);
+
+function sortObj(arr) {
+    arr.sort(function (a, b) {
+        return a.id > b.id ? 1 : -1;
+    })
+}
+let searchRightAbility = function (a, b) {
+    for (let i = 0; i < b.length; i++) {
+        if (a.abilities[0].ability.name !== b[i].name) {
+            let found = b.find((e) => e.name == a.abilities[0].ability.name);
+            return found
+        }
+        // console.log(a[i].abilities[0].ability.name == b[i].name ? true : false);
+        // console.log(a[i].abilities[0].ability.name, b[i].name)
+    }
+}
 function updateData(e) {
-    var len = e.length;
-    // console.log(len)
-    var block = '';
-    for (i = 0; i < len; i++) {
+    let block = '';
+    for (let i = 0; i < e.length; i++) {
+        // console.log(i);
         if (e[i].types.length == 1) {
             block += `
         <div class="pokemon_obj" data-number="${i}" data-type="${e[i].types[0].type.name}">
@@ -90,15 +120,15 @@ function updateData(e) {
         //         <span data-number="${i}" class="type">${e[i].types[1].type.name}</span>
         //     </p>
         // </div>
+
+        // typeClass()
     }
     content.innerHTML = block
-    // typeClass()
 }
 
 function PrefixIntegar(num, length) {
     return (Array(length).join('0') + num).slice(-length);
 }
-
 content.addEventListener('click', showData, false)
 function showData(e) {
     // pokemonInfo.style.display = "flex"
@@ -108,7 +138,8 @@ function showData(e) {
     } else if (e.target.dataset.number !== 'undefined') {
         content.classList.add('pokemon_info');
         var str = '';
-        var number = e.target.dataset.number
+        var number = e.target.dataset.number;
+        var x = searchRightAbility(eachPokemon[number], ab);
         if (eachPokemon[number].types.length == 1) {
             str = `
             <div class="pokemon_frame">
@@ -130,10 +161,10 @@ function showData(e) {
                                 Ability: 
                             </p>
                             <p>
-                                ${ab[number].names[2].name}
+                                ${x.names[2].name}
                             </p>
                             <p>
-                                ${ab[number].flavor_text_entries[27].flavor_text}
+                                ${x.flavor_text_entries[27].flavor_text}
                             </p>
                     </div>
                     </div>
@@ -160,9 +191,9 @@ function showData(e) {
                         </div>
                         <div class="ability">
                             <p>Ability: </p>
-                            <p>${ab[number].names[2].name}</p>
+                            <p>${x.names[2].name}</p>
                             <p>
-                                ${ab[number].flavor_text_entries[27].flavor_text}
+                                ${x.flavor_text_entries[27].flavor_text}
                             </p>
                         </div>
                     </div>
@@ -188,70 +219,6 @@ function showData(e) {
         content.classList.remove('pokemon_info');
         updateData(eachPokemon);
     })
-}
-
-function typeClass() {
-    var obj = document.getElementsByClassName('type');
-    for (i = 0; i < obj.length; i++) {
-        switch (obj[i].innerText) {
-            case 'fire':
-                obj[i].classList.add('fire')
-                break;
-            case 'grass':
-                obj[i].classList.add('grass')
-                break;
-            case 'poison':
-                obj[i].classList.add('poison')
-                break;
-            case 'flying':
-                obj[i].classList.add('flying')
-                break;
-            case 'water':
-                obj[i].classList.add('water')
-                break;
-            case 'bug':
-                obj[i].classList.add('bug')
-                break;
-            case 'normal':
-                obj[i].classList.add('normal')
-                break;
-            case 'psychic':
-                obj[i].classList.add('psychic')
-                break;
-            case 'fighting':
-                obj[i].classList.add('fighting')
-                break;
-            case 'electric':
-                obj[i].classList.add('electric')
-                break;
-            case 'rock':
-                obj[i].classList.add('rock')
-                break;
-            case 'ground':
-                obj[i].classList.add('ground')
-                break;
-            case 'steel':
-                obj[i].classList.add('steel')
-                break;
-            case 'ice':
-                obj[i].classList.add('ice')
-                break;
-            case 'ghost':
-                obj[i].classList.add('ghost')
-                break;
-            case 'fairy':
-                obj[i].classList.add('fairy')
-                break;
-            case 'dragon':
-                obj[i].classList.add('dragon')
-                break;
-            case 'dark':
-                obj[i].classList.add('dark')
-                break;
-
-        }
-    }
-
 }
 
 function typeClass2() {
@@ -319,7 +286,7 @@ function typeClass2() {
 }
 // 標籤切換
 var tag = document.querySelectorAll('.tag span');
-for (i = 0; i < tag.length; i++) {
+for (let i = 0; i < tag.length; i++) {
     tag[i].addEventListener('click', function (e) {
         var t = e.target.dataset.name
         // console.log(e.target)
@@ -340,7 +307,6 @@ function filterFunction() {
     const input = document.getElementById("myInput");
     const filterItem = document.getElementsByTagName('h4');
     var p = content.querySelectorAll('.pokemon_obj');
-    console.log(p.length);
     for (i = 0; i < p.length; i++) {
         // console.log(input.value)
         if (filterItem[i].textContent.indexOf(input.value.toUpperCase()) > -1) {
@@ -351,7 +317,6 @@ function filterFunction() {
     }
 
 }
-
 //圖片
 var counter = 5;
 const imgChange = document.querySelectorAll('.figure');

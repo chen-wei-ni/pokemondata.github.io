@@ -20,8 +20,8 @@ img
     +size(100%,100vh)
     position: fixed
     overflow: hidden
-    background: url('../images/dot_b.png')  repeat-x
-    background-position:  0% 110%
+    background: url('../images/dot_b.png') repeat-x
+    background-position: 0% 110%
     z-index: 1
 .slide_wrap
     overflow: hidden
@@ -31,14 +31,14 @@ img
         list-style: none
         animation: infinity-scroll-left 10s infinite linear
         line-height: 1.3
-        &.whiteText 
+        &.whiteText
             animation: infinity-scroll-left 10s infinite linear reverse
             .slide_item
                 span
                     color: #ffffff
         &.reverse
             animation: infinity-scroll-left 10s infinite linear
-        .slide_item 
+        .slide_item
             &:nth-child(2)
                 margin-left: 1000px
             span
@@ -64,8 +64,8 @@ img
             padding: 20px
             .tag
                 color: #fff
-                background: linear-gradient(180deg,  #d2b0ff 5%,#7e21ff 20% ,$mainColor 50%, #5500cc 80%)
-                box-shadow: inset 3px  0px  3px #ffffff
+                background: linear-gradient(180deg, #d2b0ff 5%,#7e21ff 20% ,$mainColor 50%, #5500cc 80%)
+                box-shadow: inset 3px 0px 3px #ffffff
                 transform: skew(-22deg)
                 margin: 0 0 6px 0
                 border-radius: 5px
@@ -74,7 +74,7 @@ img
                 span
                     cursor: pointer
                     display: block
-                    padding: 2px 15px 2px 12px 
+                    padding: 2px 15px 2px 12px
     .figure
         position: absolute
         width: 1100px
@@ -84,7 +84,7 @@ img
         &.g2
             transition: all .3s
             opacity: 1
-            animation: glitchText  2.5s linear
+            animation: glitchText 2.5s linear
     .purple_area
         position: absolute
         +size(100%,480px)
@@ -100,12 +100,12 @@ img
     border-left: 9px solid $mainColor
     border-right: 9px solid $mainColor
     z-index: 20
-    &::before            
+    &::before
         content: ''
         position: fixed
         +size(412px,100%)
         opacity: 0.1
-        background:  url('../images/dot.svg') bottom repeat-x
+        background: url('../images/dot.svg') bottom repeat-x
     &::-webkit-scrollbar-track
         background-color: #ffffff6c
     &::-webkit-scrollbar
@@ -121,9 +121,9 @@ img
         bottom: 0
         background-color: $mainColor
         input
-            +size(100%,30px)  
+            +size(100%,30px)
             padding-left: 5px
-    .main    
+    .main
         display: grid
         margin-bottom: 60px
         column-gap: 10px
@@ -141,6 +141,7 @@ img
 
     .pokemon_info
         +size(100%,100%)
+        min-height: 760px
         display: block
         background: #ffffff url(../images/bg_repeat.jpg)
         animation: infinity-scroll-slanted 5s infinite linear
@@ -152,12 +153,12 @@ img
                 top: 1rem
                 right: 1rem
                 padding: 5px 10px 7px 4px
-                +size(5rem) 
-                border-radius: 8px  
+                +size(5rem)
+                border-radius: 8px
                 cursor: pointer
                 .close_body
                     +size(100%)
-                    border-radius: 3px  
+                    border-radius: 3px
                     position: relative
                     &::after
                         content: ""
@@ -180,12 +181,12 @@ img
                     &:hover
                         &::after,&::before
                             background-color: #353535
-                        
+
             .pokemon_profile
                 height: 100%
                 position: relative
                 .my_photo
-                    width: 350px
+                    width: 300px
                     margin: 0 auto
                     filter: drop-shadow(0 0 15px #3a3a3a36)
                 h4
@@ -202,7 +203,7 @@ img
                     padding: 1rem 2rem
                     p
                         color: #232323
-                        font-size: 1.2rem
+                        font-size: 15px
                         margin: 0.6rem 0
                         text-shadow: 0 0 5px #00000031
         .attributes
@@ -235,7 +236,7 @@ img
             .electric
                 background: radial-gradient(ellipse at left, #ffea9d,#ffe600 20%,transparent 65%)
             .rock
-                background: radial-gradient(ellipse at left, #ffea9d,#47361c 20%,transparent 65%) 
+                background: radial-gradient(ellipse at left, #ffea9d,#47361c 20%,transparent 65%)
             .ground
                 background: radial-gradient(ellipse at left, #ffea9d,#7b3620 20%,transparent 65%)
             .steel
@@ -270,8 +271,8 @@ img
     top: 0
     left: 0
     z-index: 25
-    .content      
-        display: flex    
+    .content
+        display: flex
         h1
             animation: glitchText2 2s infinite
         .squres
@@ -293,7 +294,7 @@ img
 .closeLoading
     transition: all 1s
     opacity: 0
-    
+
 @keyframes infinity-scroll-left
     0%
         transform: translateX(-40%)
@@ -316,57 +317,50 @@ img
     100%
         right: -50px
 
-@keyframes glitch 
-    0% 
+@keyframes glitch
+    0%
         opacity: 1
         transform: translate3d(0, 0, 0) scale3d(-1, -1, 1)
         -webkit-clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%)
         clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%)
-    
 
-    10% 
+    10%
         -webkit-clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%)
         clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%)
-    
 
-    20% 
+    20%
         -webkit-clip-path: polygon(0 44%, 100% 44%, 100% 54%, 0 44%)
         clip-path: polygon(0 44%, 100% 44%, 100% 54%, 0 44%)
-    
 
-    35% 
+    35%
         -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%)
         clip-path: polygon(0 16%, 100% 16%, 100% 19%, 0 19%)
-    
 
-    38% 
+    38%
         -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%)
         clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%)
-    
 
-    69% 
+    69%
         -webkit-clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%)
         clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%)
-    
 
-    70% 
+    70%
         -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%)
         clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%)
-    
 
-    88% 
+    88%
         -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%)
-        clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%)    
+        clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%)
 
-    90% 
-        transform: translate3d(0, 0, 0) scale3d(-1, 1, 1)     
+    90%
+        transform: translate3d(0, 0, 0) scale3d(-1, 1, 1)
 
-    100% 
+    100%
         opacity: 0
         transform: translate3d(0, 0, 0) scale3d(1, 1, 1)
         -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
-        
+
 @keyframes glitchText
     0%
         transform: translate3d((-1*10px),0,0) scale3d(-1,-1,1)
