@@ -3,11 +3,11 @@
 // })
 
 const pokemonUrl = "https://pokeapi.co/api/v2/pokemon?offset=00&limit=205";
-var data = [];
+let data = [];
 let eachPokemon = [];
 const ab = [];
-var content = document.querySelector('.main');
-var pokemonInfo = document.querySelector('.pokemon_info');
+let content = document.querySelector('.main');
+let pokemonInfo = document.querySelector('.pokemon_info');
 // function downloadList(){
 //     $.ajax({
 //         url: pokemonUrl,
@@ -41,7 +41,7 @@ async function fetchPokemon() {
     try {
         const res = await fetch(pokemonUrl);
         const data = await res.json();
-        data.results.forEach(async (n, i) => {
+        data.results.forEach(async (n) => {
             let response = await fetch(n.url);
             let jsonData = await response.json();
             eachPokemon.push(jsonData);
@@ -53,18 +53,6 @@ async function fetchPokemon() {
         console.log(e);
     }
 }
-// async function catchAbility(arr) {
-//     arr.forEach(async (n, i) => {
-//         // console.log(n.abilities[0].ability.name);
-//         let abilities_ = await fetch(n.abilities[0].ability.url);
-//         let jsonab = await abilities_.json();
-//         // console.log(jsonab.name);
-//         ab.push(jsonab);
-//     })
-//     sortObj(eachPokemon);
-//     searchRightAbility(eachPokemon, ab);
-// }
-
 setTimeout(() => {
     sortObj(eachPokemon);
     updateData(eachPokemon);
@@ -112,16 +100,6 @@ function updateData(e) {
         </div>
         `
         }
-        // <div class="info" data-number="${i}">
-        //     <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
-        //     <p data-number="${i}">#${ PrefixIntegar(e[i].id,3)}</p>
-        //     <p class="types" data-number="${i}">
-        //         <span data-number="${i}" class="type">${e[i].types[0].type.name}</span>
-        //         <span data-number="${i}" class="type">${e[i].types[1].type.name}</span>
-        //     </p>
-        // </div>
-
-        // typeClass()
     }
     content.innerHTML = block
 }
@@ -131,12 +109,12 @@ function PrefixIntegar(num, length) {
 }
 content.addEventListener('click', showData, false)
 function showData(e) {
-    // pokemonInfo.style.display = "flex"
+    pokemonInfo.style.display = "block"
     if (e.target.className == 'main' || e.target.dataset.number == undefined) {
-        // pokemonInfo.style.display = "none"
+        pokemonInfo.style.display = "none"
         return
     } else if (e.target.dataset.number !== 'undefined') {
-        content.classList.add('pokemon_info');
+        // content.classList.add('pokemon_info');
         var str = '';
         var number = e.target.dataset.number;
         var x = searchRightAbility(eachPokemon[number], ab);
@@ -200,24 +178,36 @@ function showData(e) {
                 </div>
             </div>`
         }
-        // console.log(eachPokemon[number].types.length)
     }
     const slideAnimate = [
         { transform: 'translateX(-200px)' },
         { transform: ' translateX(0px)' },
     ];
+    const slideAnimateLeave = [
+        { transform: 'translateX(0px)' },
+        { transform: ' translateX(-500px)' },
+    ];
     const slideTiming = {
         duration: 200,
         iterations: 1,
     }
-    content.animate(slideAnimate, slideTiming)
-    content.innerHTML = str
+    const slideTiming2 = {
+        duration: 300,
+        iterations: 1,
+    }
+    pokemonInfo.animate(slideAnimate, slideTiming);
+    pokemonInfo.innerHTML = str;
 
-    typeClass2()
+    typeClass2();
     var closeBtn = document.querySelector('.close_btn');
     closeBtn.addEventListener('click', function () {
-        content.classList.remove('pokemon_info');
-        updateData(eachPokemon);
+        // content.classList.remove('pokemon_info');
+        pokemonInfo.animate(slideAnimateLeave, slideTiming2);
+        setTimeout(() => {
+            pokemonInfo.style.display = "none";
+        }, 300)
+
+        // updateData(eachPokemon);
     })
 }
 

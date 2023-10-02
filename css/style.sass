@@ -140,10 +140,13 @@ img
                 color: #1a1a1a
 
     .pokemon_info
-        +size(100%,100%)
-        min-height: 760px
-        display: block
-        background: #ffffff url(../images/bg_repeat.jpg)
+        position: sticky
+        top: 0
+        z-index: 22
+        max-width: 430px
+        min-height: 880px
+        display: none
+        background: #ffffff6a url(../images/bg_repeat.jpg)
         animation: infinity-scroll-slanted 5s infinite linear
         margin-bottom: 0
         .pokemon_frame
@@ -442,6 +445,7 @@ img
         width: 100%
         &::before
             width: 100%
+            height: 90%
         .input
             width: 100%
             height: 10%
@@ -451,11 +455,19 @@ img
                 height: 45px
                 font-size: 18px
         .pokemon_info
+            +size(100%,90%)
+            max-width: initial
+            min-height: initial
             .pokemon_frame
                 .pokemon_profile
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    flex-direction: column
                     .my_photo
                         width: 65%
                     .personal_data
+                        width: 85%
                         p
-                            font-size: 1rem
+                            font-size: 13px
                             margin: .4rem 0
