@@ -1,12 +1,14 @@
 // $.ajax(Api網址).then(function(res){
 //     執行動作(e.g.更新網頁)
 // })
-
-const pokemonUrl = "https://pokeapi.co/api/v2/pokemon?offset=00&limit=205";
+let offset = 0;
+let limit = 10;
+// const pokemonUrl = "https://pokeapi.co/api/v2/pokemon?offset=00&limit=205";
 let data = [];
 let eachPokemon = [];
 const ab = [];
 let content = document.querySelector('.main');
+let outside = document.querySelector('.outside');
 let pokemonInfo = document.querySelector('.pokemon_info');
 // function downloadList(){
 //     $.ajax({
@@ -39,12 +41,13 @@ let pokemonInfo = document.querySelector('.pokemon_info');
 fetchPokemon();
 async function fetchPokemon() {
     try {
-        const res = await fetch(pokemonUrl);
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
         const data = await res.json();
         data.results.forEach(async (n) => {
             let response = await fetch(n.url);
             let jsonData = await response.json();
             eachPokemon.push(jsonData);
+            updateData(jsonData, jsonData.id);
             let abilities_ = await fetch(jsonData.abilities[0].ability.url);
             let jsonab = await abilities_.json();
             ab.push(jsonab);
@@ -53,10 +56,32 @@ async function fetchPokemon() {
         console.log(e);
     }
 }
-setTimeout(() => {
-    sortObj(eachPokemon);
-    updateData(eachPokemon);
-}, 3000);
+let beforeHeight = outside.offsetHeight;
+function scrollShow() {
+    let nowHight = outside.scrollTop + outside.offsetHeight;
+    // console.log(nowHight - beforeHeight);
+    if (nowHight - beforeHeight >= 200 && beforeHeight == outside.offsetHeight) {
+        showLoading();
+        beforeHeight = nowHight;
+    }
+    else if (nowHight - beforeHeight > 920) {
+        showLoading();
+        beforeHeight = nowHight;
+    }
+};
+
+function showLoading() {
+    setTimeout(function () {
+        offset = offset + 10;
+        fetchPokemon();
+    }, 300);
+}
+outside.addEventListener("scroll", scrollShow);
+
+// setTimeout(() => {
+//     sortObj(eachPokemon);
+//     updateData(eachPokemon);
+// }, 3000);
 
 function sortObj(arr) {
     arr.sort(function (a, b) {
@@ -70,38 +95,80 @@ let searchRightAbility = function (a, b) {
             return found
         }
         // console.log(a[i].abilities[0].ability.name == b[i].name ? true : false);
-        // console.log(a[i].abilities[0].ability.name, b[i].name)
     }
 }
-function updateData(e) {
-    let block = '';
-    for (let i = 0; i < e.length; i++) {
-        // console.log(i);
-        if (e[i].types.length == 1) {
-            block += `
-        <div class="pokemon_obj" data-number="${i}" data-type="${e[i].types[0].type.name}">
-            <div class="icon_pic" data-number="${i}">
-                <img src="${e[i].sprites.other.home.front_default}" data-number="${i}" alt="" />
-            </div>
-            <div class="info" data-number="${i}">
-                <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
-            </div>
-        </div>
-        `
-        } else {
-            block += `
-        <div class="pokemon_obj" data-number="${i}" data-type="${e[i].types[0].type.name}" data-type2="${e[i].types[1].type.name}">
-            <div class="icon_pic" data-number="${i}">
-                <img src="${e[i].sprites.other.home.front_default}" data-number="${i}" alt="" />
-            </div>
-            <div class="info" data-number="${i}">
-                <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
-            </div>
-        </div>
-        `
-        }
+function updateData(e, i) {
+    // let block = '';
+    // console.log(i);
+    if (e.types.length == 1) {
+        //     block += `
+        // <div class="pokemon_obj" data-number="${i}" data-type="${e[i].types[0].type.name}">
+        //     <div class="icon_pic" data-number="${i}">
+        //         <img src="${e[i].sprites.other.home.front_default}" data-number="${i}" alt="" />
+        //     </div>
+        //     <div class="info" data-number="${i}">
+        //         <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
+        //     </div>
+        // </div>
+        // `
+        let newMonster = document.createElement("div");
+        newMonster.classList.add("pokemon_obj");
+        newMonster.setAttribute("data-number", i);
+        newMonster.setAttribute("data-type", e.types[0].type.name);
+        let iconPic = document.createElement("div");
+        iconPic.classList.add("icon_pic");
+        iconPic.setAttribute("data-number", i);
+        let img = document.createElement("img");
+        img.setAttribute("src", e.sprites.other.home.front_default);
+        img.setAttribute("data-number", i);
+        let information = document.createElement("div");
+        information.classList.add("info");
+        information.setAttribute("data-number", i);
+        let h4 = document.createElement("h4");
+        h4.setAttribute("data-number", i);
+        let h4Text = document.createTextNode(e.name.toUpperCase());
+        h4.appendChild(h4Text);
+        information.appendChild(h4);
+        iconPic.appendChild(img);
+        newMonster.appendChild(iconPic);
+        newMonster.appendChild(information);
+        content.appendChild(newMonster);
+    } else {
+        //     block += `
+        // <div class="pokemon_obj" data-number="${i}" data-type="${e[i].types[0].type.name}" data-type2="${e[i].types[1].type.name}">
+        //     <div class="icon_pic" data-number="${i}">
+        //         <img src="${e[i].sprites.other.home.front_default}" data-number="${i}" alt="" />
+        //     </div>
+        //     <div class="info" data-number="${i}">
+        //         <h4 data-number="${i}">${e[i].name.toUpperCase()}</h4>
+        //     </div>
+        // </div>
+        // `
+        let newMonster = document.createElement("div");
+        newMonster.classList.add("pokemon_obj");
+        newMonster.setAttribute("data-number", i);
+        newMonster.setAttribute("data-type", e.types[0].type.name);
+        newMonster.setAttribute("data-type2", e.types[1].type.name);
+        let iconPic = document.createElement("div");
+        iconPic.classList.add("icon_pic");
+        iconPic.setAttribute("data-number", i);
+        let img = document.createElement("img");
+        img.setAttribute("src", e.sprites.other.home.front_default);
+        img.setAttribute("data-number", i);
+        let information = document.createElement("div");
+        information.classList.add("info");
+        information.setAttribute("data-number", i);
+        let h4 = document.createElement("h4");
+        h4.setAttribute("data-number", i);
+        let h4Text = document.createTextNode(e.name.toUpperCase());
+        h4.appendChild(h4Text);
+        information.appendChild(h4);
+        iconPic.appendChild(img);
+        newMonster.appendChild(iconPic);
+        newMonster.appendChild(information);
+        content.appendChild(newMonster);
     }
-    content.innerHTML = block
+    // content.innerHTML = block;
 }
 
 function PrefixIntegar(num, length) {
@@ -109,14 +176,15 @@ function PrefixIntegar(num, length) {
 }
 content.addEventListener('click', showData, false)
 function showData(e) {
-    pokemonInfo.style.display = "block"
+    pokemonInfo.style.display = "block";
+    sortObj(eachPokemon);
     if (e.target.className == 'main' || e.target.dataset.number == undefined) {
         pokemonInfo.style.display = "none"
         return
     } else if (e.target.dataset.number !== 'undefined') {
         // content.classList.add('pokemon_info');
         var str = '';
-        var number = e.target.dataset.number;
+        var number = e.target.dataset.number - 1;
         var x = searchRightAbility(eachPokemon[number], ab);
         if (eachPokemon[number].types.length == 1) {
             str = `
@@ -295,10 +363,9 @@ for (let i = 0; i < tag.length; i++) {
 //篩選
 function filterFunction() {
     const input = document.getElementById("myInput");
-    const filterItem = document.getElementsByTagName('h4');
+    const filterItem = document.querySelectorAll(".pokemon_obj h4");
     var p = content.querySelectorAll('.pokemon_obj');
     for (i = 0; i < p.length; i++) {
-        // console.log(input.value)
         if (filterItem[i].textContent.indexOf(input.value.toUpperCase()) > -1) {
             p[i].style.display = "";
         } else {
