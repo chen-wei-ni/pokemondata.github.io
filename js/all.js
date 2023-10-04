@@ -59,7 +59,7 @@ async function fetchPokemon() {
 let beforeHeight = outside.offsetHeight;
 function scrollShow() {
     let nowHight = outside.scrollTop + outside.offsetHeight;
-    // console.log(nowHight - beforeHeight);
+    console.log(nowHight - beforeHeight);
     if (nowHight - beforeHeight >= 200 && beforeHeight == outside.offsetHeight) {
         showLoading();
         beforeHeight = nowHight;
@@ -67,6 +67,9 @@ function scrollShow() {
     else if (nowHight - beforeHeight > 920) {
         showLoading();
         beforeHeight = nowHight;
+    }
+    if (offset == 890) {
+        outside.removeEventListener("scroll", scrollShow);
     }
 };
 
@@ -77,11 +80,6 @@ function showLoading() {
     }, 300);
 }
 outside.addEventListener("scroll", scrollShow);
-
-// setTimeout(() => {
-//     sortObj(eachPokemon);
-//     updateData(eachPokemon);
-// }, 3000);
 
 function sortObj(arr) {
     arr.sort(function (a, b) {
@@ -121,6 +119,7 @@ function updateData(e, i) {
         let img = document.createElement("img");
         img.setAttribute("src", e.sprites.other.home.front_default);
         img.setAttribute("data-number", i);
+        img.setAttribute("alt", e.name);
         let information = document.createElement("div");
         information.classList.add("info");
         information.setAttribute("data-number", i);
@@ -155,6 +154,7 @@ function updateData(e, i) {
         let img = document.createElement("img");
         img.setAttribute("src", e.sprites.other.home.front_default);
         img.setAttribute("data-number", i);
+        img.setAttribute("alt", e.name);
         let information = document.createElement("div");
         information.classList.add("info");
         information.setAttribute("data-number", i);
@@ -251,30 +251,18 @@ function showData(e) {
         { transform: 'translateX(-200px)' },
         { transform: ' translateX(0px)' },
     ];
-    const slideAnimateLeave = [
-        { transform: 'translateX(0px)' },
-        { transform: ' translateX(-500px)' },
-    ];
     const slideTiming = {
         duration: 200,
         iterations: 1,
     }
-    const slideTiming2 = {
-        duration: 300,
-        iterations: 1,
-    }
+
     pokemonInfo.animate(slideAnimate, slideTiming);
     pokemonInfo.innerHTML = str;
-
     typeClass2();
-    var closeBtn = document.querySelector('.close_btn');
+    let closeBtn = document.querySelector('.close_btn');
     closeBtn.addEventListener('click', function () {
         // content.classList.remove('pokemon_info');
-        pokemonInfo.animate(slideAnimateLeave, slideTiming2);
-        setTimeout(() => {
-            pokemonInfo.style.display = "none";
-        }, 300)
-
+        pokemonInfo.style.display = "none";
         // updateData(eachPokemon);
     })
 }
@@ -342,6 +330,22 @@ function typeClass2() {
     }
 
 }
+//點擊標籤
+const typeBtn = document.querySelector(".tags");
+typeBtn.addEventListener("click", function () {
+    this.classList.add("openTag");
+    document.querySelector(".type_text").style.display = "none";
+    document.querySelector(".alltag").style.display = "flex";
+    document.querySelector(".alltag").style.opacity = "1";
+}, true);
+const closeType = document.querySelector(".type_close");
+closeType.addEventListener("click", function () {
+    typeBtn.classList.remove("openTag");
+    document.querySelector(".type_text").style.display = "block";
+    document.querySelector(".alltag").style.opacity = "0";
+    document.querySelector(".alltag").style.display = "none";
+})
+
 // 標籤切換
 var tag = document.querySelectorAll('.tag span');
 for (let i = 0; i < tag.length; i++) {
@@ -356,6 +360,7 @@ for (let i = 0; i < tag.length; i++) {
                 p[b].style.display = "block"
             } else if (t == 'all') {
                 p[b].style.display = "block"
+                beforeHeight = outside.offsetHeight;
             }
         }
     }, false)
