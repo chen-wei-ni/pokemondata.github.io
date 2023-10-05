@@ -194,7 +194,7 @@ function showData(e) {
                 </div>
                 <div class="pokemon_profile">
                     <div class="my_photo">
-                        <img src="${eachPokemon[number].sprites.other.home.front_default}" width="512" height="512" alt="${eachPokemon[number].name}" />
+                        <img src="${eachPokemon[number].sprites.other.home.front_default}" width="300" height="300" alt="${eachPokemon[number].name}" />
                     </div>
                     <h4>${eachPokemon[number].name.toUpperCase()}</h4>
                     <div class="personal_data">
@@ -224,7 +224,7 @@ function showData(e) {
                 </div>
                 <div class="pokemon_profile">
                     <div class="my_photo">
-                        <img src="${eachPokemon[number].sprites.other.home.front_default}" width="512" height="512" alt="${eachPokemon[number].name}" />
+                        <img src="${eachPokemon[number].sprites.other.home.front_default}" width="300" height="300" alt="${eachPokemon[number].name}" />
                     </div>
                     <h4>${eachPokemon[number].name.toUpperCase()}</h4>
                     <div class="personal_data">
