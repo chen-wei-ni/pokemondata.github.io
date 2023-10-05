@@ -18,7 +18,7 @@ img {
   height: 100vh;
   position: fixed;
   overflow: hidden;
-  background: url("../images/dot_b.png") repeat-x;
+  background: url("../images/dot_b.webp") repeat-x;
   background-position: 0% 110%;
   z-index: 1;
 }
@@ -283,7 +283,7 @@ img {
   max-width: 430px;
   min-height: 880px;
   display: none;
-  background: rgba(255, 255, 255, 0.4156862745) url(../images/bg_repeat.jpg);
+  background: rgba(255, 255, 255, 0.4156862745) url(../images/bg_repeat.webp);
   animation: infinity-scroll-slanted 5s infinite linear;
   margin-bottom: 0;
 }
