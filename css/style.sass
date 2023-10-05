@@ -204,10 +204,14 @@ img
         background: url('../images/dot.svg') bottom repeat-x
     &::-webkit-scrollbar-track
         background-color: #ffffff6c
+
     &::-webkit-scrollbar
+        background-color: #ffffff6c
+        width: 10px
         display: none
     &::-webkit-scrollbar-thumb
-        background: linear-gradient(151.47deg, #efffbd 0.49%, rgb(166, 176, 119) 32.86%)
+        background: rgba(#bcbcbc,0.5)
+        border-radius: 5px
     .input
         position: fixed
         display: flex
@@ -288,7 +292,7 @@ img
                 position: relative
                 .my_photo
                     width: 300px
-                    margin: 0 auto
+                    margin: 20px auto
                     filter: drop-shadow(0 0 15px #3a3a3a36)
                 h4
                     text-align: center
@@ -523,6 +527,11 @@ img
             right: 41%
     .outside
         left: 60%
+        .pokemon_info
+            .pokemon_frame
+                .pokemon_profile
+                    .my_photo
+                        width: 250px
 @media screen and ( max-width: 1000px )
     .container
         .tags

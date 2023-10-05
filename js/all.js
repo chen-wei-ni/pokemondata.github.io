@@ -59,7 +59,7 @@ async function fetchPokemon() {
 let beforeHeight = outside.offsetHeight;
 function scrollShow() {
     let nowHight = outside.scrollTop + outside.offsetHeight;
-    console.log(nowHight - beforeHeight);
+    // console.log(nowHight - beforeHeight);
     if (nowHight - beforeHeight >= 200 && beforeHeight == outside.offsetHeight) {
         showLoading();
         beforeHeight = nowHight;
