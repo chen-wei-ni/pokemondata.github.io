@@ -56,20 +56,20 @@ async function fetchPokemon() {
         console.log(e);
     }
 }
-let beforeHeight = outside.offsetHeight;
+let beforeHeight = content.offsetHeight;
 function scrollShow() {
-    let nowHight = outside.scrollTop + outside.offsetHeight;
-    // console.log(nowHight - beforeHeight);
-    if (nowHight - beforeHeight >= 200 && beforeHeight == outside.offsetHeight) {
+    let nowHight = content.scrollTop + content.offsetHeight;
+    console.log(nowHight - beforeHeight);
+    if (nowHight - beforeHeight >= 120 && beforeHeight == content.offsetHeight) {
         showLoading();
         beforeHeight = nowHight;
     }
-    else if (nowHight - beforeHeight > 920) {
+    else if (nowHight - beforeHeight > 700) {
         showLoading();
         beforeHeight = nowHight;
     }
     if (offset == 890) {
-        outside.removeEventListener("scroll", scrollShow);
+        content.removeEventListener("scroll", scrollShow);
     }
 };
 
@@ -79,7 +79,7 @@ function showLoading() {
         fetchPokemon();
     }, 300);
 }
-outside.addEventListener("scroll", scrollShow);
+content.addEventListener("scroll", scrollShow);
 
 function sortObj(arr) {
     arr.sort(function (a, b) {
